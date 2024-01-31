@@ -1,16 +1,62 @@
 ---
+import Layout from '../Layouts/Layout.astro';
+import Poke from '../components/Poke.astro';
 
+let offset = Astro.url.searchParams.get('offset') || 0;
+offset = Number(offset);
+
+let lista = await fetch(
+  `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offset}`
+)
+  .then((res) => res.json())
+  .then((info) => info.results)
+  .catch((error) => console.error(error));
+
+const pokemons = await Promise.all(
+  await lista.map(async (poke) => {
+    let item = await fetch(poke.url);
+    item = await item.json();
+
+    return {
+      name: poke.name,
+      img: item.sprites.other['official-artwork'].front_default,
+    };
+  })
+);
+
+const prev = `?offset=${offset == 0 ? 0 : offset - 20}`;
+const next = `?offset=${offset + 20}`;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='viewport' content='width=device-width' />
+    <meta name='generator' content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <Layout>
+    <div class='flex justify-center'>
+      <div class='grid grid-cols-3 gap-20'>
+        {
+          pokemons.map(async (poke) => {
+            return (
+              <div class='w-34 border rounded-md border-black'>
+                <img src={poke.img} alt={poke.name} class='' />
+                <div class=''>
+                  <h1 class='text-center'>{poke.name}</h1>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+
+    <!-- <button>Next</button> -->
+    <Poke />
+  </Layout>
+
+
 </html>
