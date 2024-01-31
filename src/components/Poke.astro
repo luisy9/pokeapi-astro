@@ -1,0 +1,16 @@
+---
+const { img, name } = Astro.props;
+
+const passToUpee = () => {
+ let hoola = name?.toUpperCase()[0] + name?.slice(1);
+ return hoola;
+}
+
+---
+
+<div class='w-34 border rounded-md border-borderCardColor'>
+  <img src={img} alt={name} class='' />
+  <div class=''>
+    <h1 class='text-center text-white font-bold'>{passToUpee}</h1>
+  </div>
+</div>

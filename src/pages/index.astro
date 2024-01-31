@@ -37,24 +37,21 @@ const next = `?offset=${offset + 20}`;
     <title>Astro</title>
   </head>
   <Layout>
+    <div class='flex justify-center p-5'>
+      <img src=`./img/pokeApi.png` alt='pokeapi' class="w-50" />
+    </div>
     <div class='flex justify-center'>
       <div class='grid grid-cols-3 gap-20'>
         {
-          pokemons.map(async (poke) => {
-            return (
-              <div class='w-34 border rounded-md border-black'>
-                <img src={poke.img} alt={poke.name} class='' />
-                <div class=''>
-                  <h1 class='text-center'>{poke.name}</h1>
-                </div>
-              </div>
-            );
+          pokemons.map((poke) => {
+            return <Poke img={poke.img} name={poke.name} />;
           })
         }
       </div>
     </div>
 
-    <!-- <button>Next</button> -->
+    <button>Next</button>
+    <button>Previus</button>
     <Poke />
   </Layout>
 
