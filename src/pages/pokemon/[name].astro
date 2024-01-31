@@ -2,11 +2,13 @@
 import Layout from '../../Layouts/Layout.astro';
 
 const { name } = Astro.params;
+
+//Hacer fetch para coger el pokemon y sus datos.
 ---
 
 <Layout>
   <div class=''>
-    <h1>dasdasdas{name}</h1>
+    <h1>{name}</h1>
     <img src='' alt='' />
     <h1></h1>
   </div>
