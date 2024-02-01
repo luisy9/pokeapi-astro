@@ -4,17 +4,39 @@ import Layout from '../../Layouts/Layout.astro';
 const { name } = Astro.params;
 
 //Hacer fetch para coger el pokemon y sus datos.
-const pokemonList = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
-  .then((result) => result.json())
-  .then((pokemon) => pokemon);
+let pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+  .then((res) => res.json())
+  .then((pokemon) => pokemon)
+  .catch((error) => console.log(error));
 
-console.log(pokemonList);
+const toUpperName = () => {
+  return name[0].toUpperCase() + name.slice(1);
+};
 ---
 
 <Layout>
-  <div class=''>
-    <h1>{name}</h1>
-    <img src='' alt='' />
-    <h1></h1>
+  <div class='h-screen flex justify-center'>
+    <div class='grid grid-cols-1 h-20 py-10'>
+      <div class='w-34 border-2 rounded-md border-[#FECA1B] px-5 py-4'>
+        <h1 class='text-white text-3xl'>{toUpperName}</h1>
+        <img
+          src={pokemon.sprites.other['official-artwork'].front_default}
+          alt={name}
+        />
+        <span class='text-white'>Habilidades:</span>
+        <div class="flex gap-5">
+          {
+            pokemon.abilities.map((e) => {
+              return (
+                <div class='bg-sky-500 w-fit border-none rounded-md px-2 py-1'>
+                  {e.ability.name}
+                </div>
+              );
+            })
+          }
+        </div>
+
+      </div>
+    </div>
   </div>
 </Layout>

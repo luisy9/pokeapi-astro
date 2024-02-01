@@ -1,11 +1,12 @@
 ---
+import Layout from '../Layouts/Layout.astro';
+
 const { img, name } = Astro.props;
 
 const passToUpee = () => {
- let hoola = name?.toUpperCase()[0] + name?.slice(1);
- return hoola;
-}
-
+  let hoola = name?.toUpperCase()[0] + name?.slice(1);
+  return hoola;
+};
 ---
 
 <div class='w-34 border rounded-md border-borderCardColor'>
