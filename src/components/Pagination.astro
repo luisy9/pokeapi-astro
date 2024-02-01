@@ -1,0 +1,23 @@
+---
+import Layout from '../Layouts/Layout.astro';
+const { offset } = Astro.props;
+---
+
+<Layout>
+  <div class='flex justify-evenly p-10'>
+    <a href=''
+      ><button
+        id='paginationNext'
+        class='border-solid border-2 rounded-md px-10 py-2 bg-[#FECA1B] border-[#3761A8] hover:bg-red-500 font-medium'
+        >Next</button
+      ></a
+    >
+    <a href=''>
+      <button
+        id='paginationPrevius'
+        class='border-solid border-2 rounded-md px-10 py-2 bg-[#FECA1B] border-[#3761A8] hover:bg-red-500 font-medium'
+        >Previus</button
+      ></a
+    >
+  </div>
+</Layout>

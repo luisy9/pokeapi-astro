@@ -4,6 +4,11 @@ import Layout from '../../Layouts/Layout.astro';
 const { name } = Astro.params;
 
 //Hacer fetch para coger el pokemon y sus datos.
+const pokemonList = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+  .then((result) => result.json())
+  .then((pokemon) => pokemon);
+
+console.log(pokemonList);
 ---
 
 <Layout>
